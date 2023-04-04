@@ -1,0 +1,31 @@
+{
+  "name": "spiderbot",
+  "version": "1.0.0",
+  "description": "A gamer bot for telegram ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheWendril/spiderbot.git"
+  },
+  "keywords": [
+    "game",
+    "epic",
+    "games",
+    "telegram"
+  ],
+  "author": "Wendril Avila",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheWendril/spiderbot/issues"
+  },
+  "homepage": "https://github.com/TheWendril/spiderbot#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "epic-free-games": "^4.0.1",
+    "node-telegram-bot-api": "^0.61.0"
+  }
+}
