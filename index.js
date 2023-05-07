@@ -1,52 +1,35 @@
 require('dotenv').config()
 const TelegramBot = require('node-telegram-bot-api')
-const { EpicFreeGames } = require('epic-free-games')
-const GameStringfy = require('./src/GameStringfy.js')
+const StrategyMenu = require('./src/StrategyMenu')
 
 const token = process.env.BOT_TOKEN;
-const epicFreeGames = new EpicFreeGames({country: 'BR', locale: 'pt-BR', includeAll: false}) 
 
 const bot = new TelegramBot(token, {polling: true});
 
-bot.on('message', (msg) => {
-    
+const options = {
+    reply_markup: {
+      inline_keyboard: [
+        [{ text: StrategyMenu['freegamesepic'].menuLabel, callback_data: 'freegamesepic' }],
+        [{ text: StrategyMenu['nextfreegamesepic'].menuLabel, callback_data: 'nextfreegamesepic' }]
+      ]
+    }
+  };
+
+
+bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id
+    bot.sendMessage(chatId, "Suas opções: ", options)
+})
 
-    if(msg.text == '/help'){
-        bot.sendMessage(chatId, 'Seja bem vindo ao bot de jogos Spider!\n')
-    }
-    
-    else if(msg.text == '/free'){
+bot.on('callback_query', (callbackQuery) => {
 
-        epicFreeGames.getGames().then((res) => {
+    const chatId = callbackQuery.from.id
+    const data = callbackQuery.data
 
-            bot.sendMessage(chatId, 'Aqui estão os jogos grátis da semana na Epic Games: ').then(() => {
+   StrategyMenu[data].process(bot, chatId)
 
-                for(let i = 0; i < res.currentGames.length; i++){
-                    bot.sendPhoto(chatId, GameStringfy.getImageFromObject(res.currentGames[i]), 
-                                    {caption: GameStringfy.freeGamesToMessage(res.currentGames[i])})
-                }
-
-            })
-
-        }).catch((err) => console.log(err))
-        
-    }
-
-    else if(msg.text == '/next'){
-
-        epicFreeGames.getGames().then((res) => {
-
-            bot.sendMessage(chatId, 'Aqui estão os jogos que ficarão grátis na Epic Games: ').then(() => {
-
-                for(let i = 0; i < res.nextGames.length; i++){
-                    bot.sendPhoto(chatId, GameStringfy.getImageFromObject(res.nextGames[i]), 
-                                    {caption: GameStringfy.freeGamesToMessage(res.nextGames[i])})
-                }
-                
-            })
-
-        }).catch((err) => console.log(err))
-
-    }
+    /*setTimeout(()=>{
+        bot.sendMessage(chatId, "Suas opções: ", options)
+    }, 1000)
+    */
 })
