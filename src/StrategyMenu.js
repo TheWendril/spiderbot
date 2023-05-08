@@ -28,15 +28,19 @@ const StrategyMenu = {
         process: (bot, chatId) => {
 
             epicFreeGames.getGames().then((res) => {
+       
+                if(res.nextGames.length == 0)
+                    bot.sendMessage(chatId, 'Ainda não há registros de jogos para próxima semana!')            
+                
+                else                
+                    bot.sendMessage(chatId, 'Aqui estão os jogos que ficarão grátis na Epic Games: ').then(() => {
 
-                bot.sendMessage(chatId, 'Aqui estão os jogos que ficarão grátis na Epic Games: ').then(() => {
-
-                    for(let i = 0; i < res.nextGames.length; i++){
-                        bot.sendPhoto(chatId, GameStringfy.getImageFromObject(res.nextGames[i]), 
-                                        {caption: GameStringfy.freeGamesToMessage(res.nextGames[i])})
-                    }
-                    
-                })
+                        for(let i = 0; i < res.nextGames.length; i++){
+                            bot.sendPhoto(chatId, GameStringfy.getImageFromObject(res.nextGames[i]), 
+                                            {caption: GameStringfy.freeGamesToMessage(res.nextGames[i])})
+                        }
+                        
+                    })
             }).catch((err) => console.log(err))
         }
     }

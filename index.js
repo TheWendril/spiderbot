@@ -23,13 +23,13 @@ bot.onText(/\/start/, (msg) => {
 
 bot.on('callback_query', (callbackQuery) => {
 
-    const chatId = callbackQuery.from.id
-    const data = callbackQuery.data
+  const chatId = callbackQuery.from.id
+  const data = callbackQuery.data
 
-   StrategyMenu[data].process(bot, chatId)
+  StrategyMenu[data].process(bot, chatId)
 
-    /*setTimeout(()=>{
-        bot.sendMessage(chatId, "Suas opções: ", options)
-    }, 1000)
-    */
+  setTimeout(()=>{
+      bot.sendMessage(chatId, "Suas opções: ", options)
+  }, 1300)
+
 })
