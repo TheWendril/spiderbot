@@ -1,6 +1,6 @@
 require('dotenv').config()
 const TelegramBot = require('node-telegram-bot-api')
-const StrategyMenu = require('./src/StrategyMenu')
+const StrategyMenu = require('/src/StrategyMenu')
 
 const token = process.env.BOT_TOKEN;
 
