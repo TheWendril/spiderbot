@@ -26,6 +26,8 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "epic-free-games": "^4.0.1",
-    "node-telegram-bot-api": "^0.61.0"
+    "node-telegram-bot-api": "^0.61.0",
+    "webpack": "^5.1.4",
+    "webpack-cli": "^5.88.1"
   }
 }
